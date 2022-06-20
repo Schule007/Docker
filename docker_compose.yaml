@@ -1,0 +1,12 @@
+version: '2.6.0'
+
+  services:
+
+    service-1:
+      image: busybox
+      volumes:
+        - /home/anshulgupta/Desktop/training/Docker/Docker_tools
+      command: echo 'Here is busy box'
+
+    service-2:
+      image: hello-world
