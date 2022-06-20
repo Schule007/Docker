@@ -1,0 +1,65 @@
+### Part 1: Test on basic docker commands
+
+- Pull docker image `busybox`.
+
+	docker pull busybox
+
+- Run `busybox` such that there is a text "Hello world!" printed out on the terminal.
+
+	docker run busybox echo "Hello world!"
+
+- Use command to check all containers including exited ones.
+
+	docker ps -a
+
+- Run `busybox` in interative mode with bash shell.
+	
+	docker container run -it busybox /bin/bash
+
+- Run `busybox` in detached mode and also make sure the container does not exit (Hint: you can use command `sleep infinity`).
+
+	docker run -d busybox:1.24 sleep infinity
+
+- Stop and then remove all running container.
+
+	docker ps -aq | xargs docker stop | xargs docker rm
+	
+- Check all available Docker images and then remove `busybox` image.
+
+	docker image ls
+	docker image rmi busybox
+
+### Part 2: Test on basic docker compose
+- Check version of your docker compose.
+`	Command used: docker compose version
+		Version: v2.6.0
+		
+		
+- Write a `docker-compose.yaml` file with following requirements:
+    * two services name `service-1` and `service-2`.
+	* `service-1` will use image `busybox` and `service-2` will use image `hello-world`.
+	* at least 1 folder in your PC will be mounted inside container of `service-1`.
+	* `service-1` should print out `Here is busybox` if you don't run it in detached mode.
+	
+
+	
+  version: '2.6.0'
+
+  services:
+
+    service-1:
+      image: busybox
+      volumes:
+        - /home/anshulgupta/Desktop/training/Docker/Docker_tools
+      command: echo 'Here is busy box'
+
+    service-2:
+      image: hello-world
+	
+	
+- Use docker-compose to run the `docker-compose.yaml` file you have just written and then stop all services.
+	sudo docker-compose up
+	
+- Use docker-compose to run the `docker-compose.yaml` file again in detached mode and then stop all services.
+
+	sudo docker-compose up -d
